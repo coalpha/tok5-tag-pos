@@ -1,0 +1,78 @@
+string,tag,token_type
+analytics,NNS
+astroturfed,JJ
+ballpark figure,NN
+bandwidth,NN
+business-to-business,JJ
+B2B,JJ
+business-to-consumer,JJ
+B2C,JJ
+best of breed,JJ
+brick-and-mortar,JJ
+business process outsourcing,VBG
+outsourcing,VBG
+cadence,NN
+client-centric,JJ
+close the loop,VB
+co-opetition,NNP
+content marketing,NNP
+core competency,JJ
+creative,JJ
+customer-centric,NNP
+customer-centric mindset,NN
+downsizing,VBG
+drill down,VB
+drinking the kool-aid,VBG
+early-stage,JJ
+employer branding,NN
+eating your own dogfood,NNP
+dogfooding,VBG
+enable,VB
+entitlement,NN
+evangelist,NN
+event horizon,NN
+eyeballs,NNS
+free value,NN
+generation y,NN
+holistic approach,NN
+holistic integration,NN
+hyperlocal,NNP
+innovation,NN
+innovative,JJ
+logistics,NN
+low hanging fruit,NN
+mindshare,NN
+mission critical,JJ
+management visibility,NN
+new economy,NN
+offshoring,NN
+opportunities,NNS
+pain point,NN
+pain points,NNS
+paralysis by analysis,NN
+passionate,JJ
+privacy,NN
+piracy,NN
+productivity,NN
+profit center,NN
+quick win,NN
+quick wins,NNS
+return on investment,NN
+ROI,NN
+rightshoring,VBG
+seamless,JJ
+serum,NN
+share options,NN
+solution,NN
+solutions,NNS
+sustainability,NN
+sustainable,JJ
+storytelling,NN
+storytelling,VBG
+startup,NN
+tiger team,NN
+time-blind,JJ
+touchpoint,NN
+touchpoints,NNS
+touch based,JJ
+paradigm,NN

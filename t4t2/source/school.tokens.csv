@@ -1,0 +1,55 @@
+string,tag,token_type
+student engagement,NN
+common core,NN
+PACER Fitness Test,NN
+differentiated instruction,NN
+digital literacy,NN
+flipped classroom,NN
+guided reading,NN
+instructional scaffolding,NN
+multiple intelligences,NN
+project-based learning,NN
+design-thinking,NN
+crystal clear,JJ
+reeducation,NN
+lab-day,NN
+lab-days,NNS
+empathize,VB
+define,VB
+distinction,NN
+discover,VB
+ideate,VB
+prototype,JJ
+prototype,NN
+prototype,VB
+prototypes,NNS
+flense,VB
+gamify,VB
+gamified,JJ
+design project,NN
+design projects,NNS
+life long learner,NN
+life long learners,NNS
+learning module,NN
+innovation diploma,NN
+innovation diplomas,NNS
+human capital,NN
+competency based learning,NN
+competency based,JJ
+juul,NN
+juuling,VBG
+math-xl,NNP
+mathxl,NNP
+my spanish lab,NNP
+myspanishlab,NNP
+middlebury,NNP
+organ harvesting,VBG
+instructure canvas,NN
+block schedule,NN
+educator,NN
+educators,NNS
+learner,NN
+learners,NNS
+pain,NN
+go guardian,NNP
+Go Guardian,NNP

@@ -1,0 +1,5 @@
+string,tag_in,tag_out
+_-driven development,NN,NN
+_ engines,NN,NNS
+_ engines,JJ,NNS
+eco-_,RB,JJ

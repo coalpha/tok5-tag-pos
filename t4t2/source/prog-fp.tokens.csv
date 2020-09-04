@@ -1,0 +1,21 @@
+string,tag,token_type
+zygomorphic,JJ
+typeclass,NN
+functor,NN
+semigroupoid,NN
+monoid,NN
+monad,NN
+semigroup,NN
+foldable,JJ
+pure,JJ
+morphism,NN
+higher order,JJ
+higher-order,JJ
+higher-kinded-types,NN
+dependent types,NN
+types,NN
+category,NN
+ocaml,NNP
+f#,NNP
+haskell,NNP
+f*,NNP
