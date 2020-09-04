@@ -1,18 +1,15 @@
 const capitalize = require("capitalize");
 
-/** @typedef {import("./Entry").Whole_o} Whole_o */
-/** @typedef {import("./TableSqlite3Table")._o} TableSqlite3Table_o */
-
 /**
  * Expands one entry into several other entries for convenience
  *
- * @param {Whole_o} entry
- * @returns {TableSqlite3Table_o}
+ * @param {import("./Entry").Whole} entry
+ * @returns {import("./TableSqlite3Table").default}
  */
-export function toTable_o(entry) {
-   /** @type {import("./Entry").Token_o[]} */
+export function toTable(entry) {
+   /** @type {import("./Entry").Token[]} */
    const tokens = [];
-   /** @type {import("./Entry").Pos_o[]} */
+   /** @type {import("./Entry").Pos[]} */
    const poss = [];
 
    const { string, pos } = entry;

@@ -1,5 +1,7 @@
 const dbdriver = require("better-sqlite3");
+const implicitEntry = require("./implicitEntry");
 
+/** @extends {import("./Table").Table} */
 class TableSqlite3 {
    constructor(filename) {
       const db = this.db = new dbdriver(filename);
@@ -24,23 +26,40 @@ class TableSqlite3 {
        *
        * @type {{[name: string]: dbdriver.Statement}}
        */
-      const dbs = this.dbs = Object.create(null);
 
-      dbs.token = db.prepare(/* sql */ `
+      this.db_token = db.prepare(/* sql */ `
          insert or ignore into tokens (string, token_type)
          values (:string, :token_type);
       `);
 
-      dbs.pos = db.prepare(/* sql */ `
+      this.db_pos = db.prepare(/* sql */ `
          insert or ignore into poss (string, pos)
          values (:string, :pos);
       `);
 
-      dbs.begin = db.prepare("begin transaction");
-      dbs.rollback = db.prepare("rollback transaction");
-      dbs.commit = db.prepare("commit transaction");
+      this.db_begin = db.prepare("begin transaction");
+      this.db_rollback = db.prepare("rollback transaction");
+      this.db_commit = db.prepare("commit transaction");
 
-      /** Used for duplicate detection */
-      this.multiplexedEntryTracker = Object.create(null);
+      ///** Used for duplicate detection */
+      //this.multiplexedEntryTracker = Object.create(null);
+   }
+
+   /**
+    * @param {import("./Entry").Whole[]} entries
+    */
+   add(...entries) {
+      this.db_begin.run();
+      for (const entry of entries) {
+         const { tokens, poss } = implicitEntry.toTable(entry);
+
+         for (const token of tokens) {
+            this.db_token.run(token);
+         }
+
+         for (const pos of poss) {
+            this.db_pos.run(pos);
+         }
+      }
    }
 }
