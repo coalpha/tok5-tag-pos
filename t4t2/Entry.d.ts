@@ -1,18 +1,47 @@
 import { TokenType } from "wink-tokenizer";
-import { Pos } from "wink-pos-tagger";
+import { Pos as PosTag } from "wink-pos-tagger";
 
-export interface Whole {
-   string: string,
-   pos: Pos,
-   token_type: TokenType,
+namespace Entry {
+   interface TokenStringBearer {
+      string: string;
+   }
+   
+   interface TokenTypeBearer {
+      token_type: TokenType;
+   }
+   
+   interface TokenPosBearer {
+      pos: PosTag;
+   }
+   
+   declare class Whole implements 
+      TokenStringBearer,
+      TokenTypeBearer,
+      TokenPosBearer {
+      constructor(
+         public string: string,
+         public pos: PosTag,
+         public token_type: TokenType = "word"
+      );
+   }
+   
+   declare class Token implements
+      TokenStringBearer,
+      TokenTypeBearer {
+      constructor(
+         public string: string,
+         public token_type: TokenType = "word",
+      );
+   };
+   
+   declare class Pos implements
+      TokenStringBearer,
+      TokenPosBearer {
+      constructor(
+         public string: string,
+         public pos: PosTag,
+      );
+   };
 }
 
-export interface Token {
-   string: string,
-   token_type: TokenType,
-};
-
-export interface Pos {
-   string: string,
-   pos: Pos,
-};
+export = Entry;

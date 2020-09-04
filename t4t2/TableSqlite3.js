@@ -1,7 +1,7 @@
 const dbdriver = require("better-sqlite3");
-const implicitEntry = require("./implicitEntry");
+const TreeNode = require("./TreeNode");
+const Entry = require("./Entry");
 
-/** @extends {import("./Table").Table} */
 class TableSqlite3 {
    constructor(filename) {
       const db = this.db = new dbdriver(filename);
@@ -21,12 +21,6 @@ class TableSqlite3 {
          ) without rowid;
       `);
 
-      /**
-       * Database prepared statements
-       *
-       * @type {{[name: string]: dbdriver.Statement}}
-       */
-
       this.db_token = db.prepare(/* sql */ `
          insert or ignore into tokens (string, token_type)
          values (:string, :token_type);
@@ -41,25 +35,78 @@ class TableSqlite3 {
       this.db_rollback = db.prepare("rollback transaction");
       this.db_commit = db.prepare("commit transaction");
 
+      // https://stackoverflow.com/questions/41503359/how-to-select-all-rows-with-duplicated-column-value-in-sql
+      this.db_pos_duplicates = db.prepare(/* sql */ `
+         select * from (
+            select *, count(1) over (partition by string) as occ from poss
+         ) where occ > 1
+         order by string;
+      `);
+
+      /** @type {{ all(): Entry.Pos[] }} */
+      this.db_all_poss = db.prepare(/* sql */ `
+         select string, pos from poss;
+      `);
+
+      /** @type {{ all(): Entry.Token[] }} */
+      this.db_all_tokens = db.prepare(/* sql */ `
+         select string, token_type from tokens;
+      `);
+
       ///** Used for duplicate detection */
       //this.multiplexedEntryTracker = Object.create(null);
    }
 
-   /**
-    * @param {import("./Entry").Whole[]} entries
-    */
+   /** @param {import("./Entry").Whole[]} entries */
    add(...entries) {
       this.db_begin.run();
       for (const entry of entries) {
-         const { tokens, poss } = implicitEntry.toTable(entry);
+         this.db_token.run(entry);
+         this.db_pos.run(entry);
+      }
+      this.db_commit.run();
+   }
 
-         for (const token of tokens) {
-            this.db_token.run(token);
-         }
+   /** @returns {string[]} */
+   get duplicates() {
+      return this.db_pos_duplicates.all();
+   }
 
-         for (const pos of poss) {
-            this.db_pos.run(pos);
+   get posList() {
+      const list = Object.create(null);
+      for (const { string, pos } of this.db_all_poss.all()) {
+         if (string in list) {
+            list[string].push(pos);
+         } else {
+            list[string] = [pos];
          }
       }
+      return list;
+   }
+
+   get tree() {
+      const root = new TreeNode;
+      for (const { string, token_type } of this.db_all_tokens.all()) {
+         console.log(`crtk ${string}`);
+         let cursor = root.next;
+         const words = stokenize(string);
+         for (const word of words.slice(0, -1)) {
+            console.log(`   word ${word}`);
+            cursor[word] = new TreeNode(cursor[word]);
+            cursor = cursor[word].next;
+         }
+         const lastword = words[words.length - 1];
+         console.log(`   lstw ${lastword}`);
+         cursor[lastword] = new TreeNode(null, {
+            value: string,
+            tag: token_type,
+         });
+      }
+      return root;
+   }
+   close() {
+      this.db.close();
    }
 }
+
+module.exports = TableSqlite3;

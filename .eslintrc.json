@@ -2,5 +2,8 @@
    "extends": "@coalpha",
    "env": {
       "node": true
+   },
+   "rules": {
+      "no-constructor-return": 0
    }
 }

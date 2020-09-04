@@ -1,9 +1,5 @@
-import { PosTag } from "wink-pos-tagger";
+import { Pos } from "wink-pos-tagger";
 
-interface PosList {
-   [token: string]: PosTag[],
+export default interface PosList {
+   [token: string]: Pos[],
 }
-
-declare const posList: PosList;
-
-export = posList;
