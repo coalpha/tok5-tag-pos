@@ -1,8 +1,11 @@
 import TokenTreeNode from "./TreeNode";
-import { Entry_t } from "./Entry";
+import { Whole_o } from "./Entry";
 
 export abstract class Table {
    tree: TokenTreeNode;
-   get entries_t(): Entry_t[];
-   get duplicates_t(): Entry_t[];
+
+   add_o(...entries: Whole_o): void;
+
+   get entries_o(): Whole_o[];
+   get duplicates_o(): Whole_o[];
 }

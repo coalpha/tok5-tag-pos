@@ -1,8 +1,8 @@
 diff --git a/node_modules/@types/wink-pos-tagger/index.d.ts b/node_modules/@types/wink-pos-tagger/index.d.ts
-index 31957d6..d4fd111 100644
+index 31957d6..0f1516f 100644
 --- a/node_modules/@types/wink-pos-tagger/index.d.ts
 +++ b/node_modules/@types/wink-pos-tagger/index.d.ts
-@@ -1,71 +1,66 @@
+@@ -1,71 +1,67 @@
 -// Type definitions for wink-pos-tagger 2.2
 -// Project: http://winkjs.org/
 -// Definitions by: Lars Klein <https://github.com/lhk>
@@ -11,8 +11,9 @@ index 31957d6..d4fd111 100644
  import { Token } from 'wink-tokenizer';
  
 -declare class Tagger {
-+declare namespace TaggerFactory {
-+    type PosTag = (
++declare namespace PosTagger {
++    /** A part of speech */
++    type Pos = (
 +        "CC" | "CD" | "DT" | "EX" | "FW" | "IN" | "JJ" | "JJR" | "JJS" | "LS" |
 +        "MD" | "NN" | "NNP" | "NNPS" | "NNS" | "POS" | "PDT" | "PRP$" | "PRP" | "RB" |
 +        "RBR" | "RBS" | "RP" | "SYM" | "TO" | "UH" | "VB" | "VBD" | "VBG" | "VBN" | "VBP" |
@@ -29,12 +30,12 @@ index 31957d6..d4fd111 100644
 +    */
 +    interface PosTaggedToken extends Token {
 +        normal: string;
-+        pos: PosTag;
++        pos: Pos;
 +        lemma?: string;
 +    }
 +}
  
-+declare class Tagger {
++declare class TaggerInstance {
      /**
 -     * This API has no effect. It has been maintained for compatibility purpose.
 -     * The wink-tokenizer will now always add lemma and normal forms.
@@ -61,7 +62,7 @@ index 31957d6..d4fd111 100644
 +    * Not to be confused with how `wink-tokenizer` adds a `.tag`,
 +    * this method adds a `.pos`.
 +    */
-+    tag(tokens: Token[]): TaggerFactory.PosTaggedToken[];
++    tag(tokens: Token[]): PosTagger.PosTaggedToken[];
      
      /**
 -     * Tags the raw tokens with their pos.
@@ -75,7 +76,7 @@ index 31957d6..d4fd111 100644
 +    * @param tokens to be pos tagged. They are simple array of string.
 +    * @return pos tagged tokens
 +    */
-+    tagRawTokens(tokens: string[]): TaggerFactory.PosTaggedToken[];
++    tagRawTokens(tokens: string[]): PosTagger.PosTaggedToken[];
      
      /**
 -     * Tokenizes the input sentence and tags the tokens.
@@ -87,7 +88,7 @@ index 31957d6..d4fd111 100644
 +    * @param sentence to be pos tagged
 +    * @return pos tagged tokens
 +    */
-+    tagSentence(sentence: string): TaggerFactory.PosTaggedToken[];
++    tagSentence(sentence: string): PosTagger.PosTaggedToken[];
      
      /**
 -     * Updates the internal lexicon using the input lexicon.
@@ -118,7 +119,7 @@ index 31957d6..d4fd111 100644
 -        lemma?: string;
 -    }
 -}
-+declare const TaggerFactory: () => Tagger;
++declare const PosTagger: () => TaggerInstance;
  
 -export = Tagger;
-+export = TaggerFactory;
++export = PosTagger;

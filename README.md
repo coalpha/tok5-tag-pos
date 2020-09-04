@@ -6,7 +6,7 @@ This would have been so much easier if `wink-tokenizer` defined Token as
 
 ```ts
 interface Token {
-   tokenType: TokenType,
+   token_type: TokenType,
    value: string,
 };
 
@@ -19,4 +19,4 @@ interface Token {
 ```
 
 I could even patch the source but I'm too lazy to go that far.
-Whenever you read `.tag`, think `.tokenType`.
+Whenever you read `.tag`, think `.token_type`.

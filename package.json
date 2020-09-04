@@ -8,7 +8,7 @@
    "devDependencies": {
       "@coalpha/eslint-config": "latest",
       "@types/better-sqlite3": "^5.4.0",
-      "@types/node": "^14.0.23",
+      "@types/node": "^14.6.4",
       "@types/wink-pos-tagger": "2.2.1",
       "eslint": "latest"
    },

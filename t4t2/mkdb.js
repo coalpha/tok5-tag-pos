@@ -4,7 +4,6 @@ const parse = require("csv-parse/lib/sync");
 const capitalize = require("capitalize");
 const dbfilename = require("./dbfilename");
 const tagOneToken = require("../tagger/oneToken");
-const { cachedDataVersionTag } = require("v8");
 
 process.chdir(__dirname);
 
