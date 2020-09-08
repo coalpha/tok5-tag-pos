@@ -107,8 +107,11 @@ class TableSqlite3 {
             value: string,
             tag: token_type,
          };
-         cursor.addToken(currentToken);
-         console.log(`   addd ${JSON.stringify(currentToken)}`);
+         // each string is mapped to one and only one token_type
+         // the db will enforce this too but if it somehow doesn't,
+         // the last token takes priority.
+         cursor.token = currentToken;
+         console.log(`   setT ${JSON.stringify(currentToken)}`);
       }
 
       return root;

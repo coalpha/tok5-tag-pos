@@ -1,12 +1,8 @@
 class TreeNode {
    constructor(name) {
       this.name = name;
-      this.token = [];
+      this.token = null;
       this.next = Object.create(null);
-   }
-
-   addToken(token) {
-      this.token.push(token);
    }
 
    open(child) {
