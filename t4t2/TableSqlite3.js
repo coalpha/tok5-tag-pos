@@ -1,8 +1,11 @@
 const dbdriver = require("better-sqlite3");
 const TreeNode = require("./TreeNode");
 const Entry = require("./Entry");
+const tokenizerSingleton = require("../tokenizerSingleton");
+/** @typedef {import("wink-tokenizer").Token} WinkToken */
 
 class TableSqlite3 {
+   /** @param {string} filename */
    constructor(filename) {
       const db = this.db = new dbdriver(filename);
 
@@ -85,25 +88,32 @@ class TableSqlite3 {
    }
 
    get tree() {
-      const root = new TreeNode;
+      // the root is a node that is not a token type but holds children.
+      const root = new TreeNode(":root");
+
       for (const { string, token_type } of this.db_all_tokens.all()) {
          console.log(`crtk ${string}`);
-         let cursor = root.next;
-         const words = stokenize(string);
-         for (const word of words.slice(0, -1)) {
+
+         const words = tokenizerSingleton.val(string);
+
+         let cursor = root;
+         for (const word of words) {
             console.log(`   word ${word}`);
-            cursor[word] = new TreeNode(cursor[word]);
-            cursor = cursor[word].next;
+            cursor = cursor.open(word);
          }
-         const lastword = words[words.length - 1];
-         console.log(`   lstw ${lastword}`);
-         cursor[lastword] = new TreeNode(null, {
+
+         /** @type {WinkToken} */
+         const currentToken = {
             value: string,
             tag: token_type,
-         });
+         };
+         cursor.addToken(currentToken);
+         console.log(`   addd ${JSON.stringify(currentToken)}`);
       }
+
       return root;
    }
+
    close() {
       this.db.close();
    }

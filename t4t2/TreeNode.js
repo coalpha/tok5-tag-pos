@@ -1,10 +1,16 @@
 class TreeNode {
-   constructor(node, token = null) {
-      if (node) {
-         return node;
-      }
-      this.token = token;
+   constructor(name) {
+      this.name = name;
+      this.token = [];
       this.next = Object.create(null);
+   }
+
+   addToken(token) {
+      this.token.push(token);
+   }
+
+   open(child) {
+      return this.next[child] || new TreeNode(`${this.name} > ${child}`);
    }
 }
 

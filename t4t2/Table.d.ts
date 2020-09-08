@@ -8,6 +8,9 @@ export abstract class Table {
    posList: PosList;
    tree: TreeNode;
 
+   jsonPosList: string;
+   jsonTree: string;
+
    /** tfw no RAII */
    close(): void;
 }
